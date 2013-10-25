@@ -1,0 +1,23 @@
+{
+    "name": "san/email-bundle",
+    "type": "symfony-bundle",
+    "description": "Exercise platform email bundle",
+    "keywords": ["exercise", "platform", "email", "bundle"],
+    "homepage": "https://github.com/Exercise/SanEmailBundle.git",
+    "license": "MIT",
+    "authors": [
+        { "name": "Alex Kovalevych", "email": "alexkovalevych@gmail.com" }
+    ],
+    "require": {
+        "san/user-list-bundle": "dev-master",
+    },
+    "autoload": {
+        "psr-0": { "San\\EmailBundle": "" }
+    },
+    "target-dir": "San/EmailBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
