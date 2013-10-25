@@ -35,7 +35,12 @@ class Email
     /**
      * @var string
      */
-    protected $content;
+    protected $text;
+
+    /**
+     * @var string
+     */
+    protected $html;
 
     /**
      * @var \DateTime
@@ -164,26 +169,49 @@ class Email
     }
 
     /**
-     * Set content
+     * Set text
      *
-     * @param string $content
+     * @param string $text
      * @return Email
      */
-    public function setContent($content)
+    public function setText($text)
     {
-        $this->content = $content;
+        $this->text = $text;
 
         return $this;
     }
 
     /**
-     * Get content
+     * Get text
      *
      * @return string
      */
-    public function getContent()
+    public function getText()
     {
-        return $this->content;
+        return $this->text;
+    }
+
+    /**
+     * Set html
+     *
+     * @param string $html
+     * @return Email
+     */
+    public function setHtml($html)
+    {
+        $this->html = $html;
+
+        return $this;
+    }
+
+    /**
+     * Get html
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->html;
     }
 
     /**

@@ -30,7 +30,8 @@ class EmailAdmin extends Admin
             ->add('subject')
             ->add('sender')
             ->add('userLists')
-            ->add('content', 'textarea')
+            ->add('text', 'textarea')
+            ->add('html', 'textarea')
         ;
     }
 
