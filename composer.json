@@ -9,7 +9,8 @@
         { "name": "Alex Kovalevych", "email": "alexkovalevych@gmail.com" }
     ],
     "require": {
-        "san/user-list-bundle": "dev-master"
+        "san/user-list-bundle": "dev-master",
+        "exercise/sendgrid-bundle": "dev-master"
     },
     "autoload": {
         "psr-0": { "San\\EmailBundle": "" }
