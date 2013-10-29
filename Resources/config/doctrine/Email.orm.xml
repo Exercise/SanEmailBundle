@@ -13,16 +13,7 @@
         <field name="sender" type="string" />
         <field name="text" type="string" />
         <field name="html" type="string" />
-        <many-to-many field="userLists" target-entity="San\UserListBundle\Entity\UserList">
-            <join-table name="san_email_user_list">
-                <join-columns>
-                    <join-column name="user_list_id" referenced-column-name="id" />
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="id" referenced-column-name="id" />
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        <field name="created" type="datetime" />
     </entity>
 
 </doctrine-mapping>

@@ -2,7 +2,6 @@
 
 namespace San\EmailBundle\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use San\UserListBundle\Entity\UserList;
 
 class Email
@@ -28,11 +27,6 @@ class Email
     protected $sender;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    protected $userLists;
-
-    /**
      * @var string
      */
     protected $text;
@@ -53,7 +47,6 @@ class Email
     public function __construct()
     {
         $this->created = new \DateTime();
-        $this->userLists = new ArrayCollection();
     }
 
     /**
@@ -136,39 +129,6 @@ class Email
     }
 
     /**
-     * Add userLists
-     *
-     * @param \San\UserListBundle\Entity\UserList $userLists
-     * @return Email
-     */
-    public function addUserList(UserList $userLists)
-    {
-        $this->userLists[] = $userLists;
-
-        return $this;
-    }
-
-    /**
-     * Remove userLists
-     *
-     * @param \San\UserListBundle\Entity\UserList $userLists
-     */
-    public function removeUserList(UserList $userLists)
-    {
-        $this->userLists->removeElement($userLists);
-    }
-
-    /**
-     * Get userLists
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUserLists()
-    {
-        return $this->userLists;
-    }
-
-    /**
      * Set text
      *
      * @param string $text
@@ -222,5 +182,13 @@ class Email
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
     }
 }
