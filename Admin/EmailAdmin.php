@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class EmailAdmin extends Admin
 {
@@ -29,7 +30,6 @@ class EmailAdmin extends Admin
             ->add('title')
             ->add('subject')
             ->add('sender')
-            ->add('userLists')
             ->add('text', 'textarea')
             ->add('html', 'textarea')
         ;
@@ -44,6 +44,20 @@ class EmailAdmin extends Admin
         ;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection
+            ->add('send', 'send/{id}', array(
+                '_controller' => 'SanEmailBundle:Admin:send'
+            ), array(
+                'id' => '\d+'
+            ))
+        ;
+    }
+
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -51,11 +65,11 @@ class EmailAdmin extends Admin
             ->add('title')
             ->add('subject')
             ->add('sender')
-            ->add('userLists')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit'   => array(),
                     'delete' => array(),
+                    'send'   => array('template' => 'SanEmailBundle:Admin/CRUD:list__action_send.html.twig'),
                 )
             ))
         ;

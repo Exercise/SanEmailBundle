@@ -8,7 +8,22 @@
             <!-- <tag name="san.admin" /> -->
             <argument />
             <argument>San\EmailBundle\Entity\Email</argument>
-            <argument>SanEmailBundle:Admin/EmailCRUD</argument>
+            <argument>SanEmailBundle:Admin</argument>
+            <call method="setTranslationDomain">
+                <argument>SanUserBundle</argument>
+            </call>
+            <call method="setTemplate">
+                <argument>send</argument>
+                <argument>SanEmailBundle:Admin/CRUD:email_send.html.twig</argument>
+            </call>
+        </service>
+
+        <service id="san.admin.email_send" class="San\EmailBundle\Admin\EmailSendAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Send"/>
+            <!-- <tag name="san.admin" /> -->
+            <argument />
+            <argument>San\EmailBundle\Entity\EmailSend</argument>
+            <argument></argument>
             <call method="setTranslationDomain">
                 <argument>SanUserBundle</argument>
             </call>
