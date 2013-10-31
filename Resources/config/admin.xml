@@ -5,12 +5,12 @@
 
         <service id="san.admin.email" class="San\EmailBundle\Admin\EmailAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Email" label="Email"/>
-            <!-- <tag name="san.admin" /> -->
+            <tag name="san.admin" />
             <argument />
             <argument>San\EmailBundle\Entity\Email</argument>
-            <argument>SanEmailBundle:Admin</argument>
+            <argument>SanEmailBundle:Admin/EmailCRUD</argument>
             <call method="setTranslationDomain">
-                <argument>SanUserBundle</argument>
+                <argument>SanEmailBundle</argument>
             </call>
             <call method="setTemplate">
                 <argument>send</argument>
@@ -20,12 +20,26 @@
 
         <service id="san.admin.email_send" class="San\EmailBundle\Admin\EmailSendAdmin">
             <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Send"/>
-            <!-- <tag name="san.admin" /> -->
+            <tag name="san.admin" />
             <argument />
             <argument>San\EmailBundle\Entity\EmailSend</argument>
             <argument></argument>
             <call method="setTranslationDomain">
-                <argument>SanUserBundle</argument>
+                <argument>SanEmailBundle</argument>
+            </call>
+        </service>
+
+        <service id="san.admin.email_identity" class="San\EmailBundle\Admin\EmailIdentityAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Identity"/>
+            <tag name="san.admin" />
+            <argument />
+            <argument>San\EmailBundle\Entity\EmailIdentity</argument>
+            <argument></argument>
+            <call method="setTranslationDomain">
+                <argument>SanEmailBundle</argument>
+            </call>
+            <call method="setSendgrid">
+                <argument type="service" id="exercise.sendgrid" />
             </call>
         </service>
 

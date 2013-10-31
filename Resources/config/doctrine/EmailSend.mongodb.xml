@@ -1,0 +1,18 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <document name="San\EmailBundle\Document\EmailSend" collection="san_email_send" repository-class="San\EmailBundle\Document\EmailSendRepository">
+        <field fieldName="id" id="true" />
+        <reference-one field="email" target-document="San\EmailBundle\Document\Email" />
+        <reference-one field="sender" target-document="San\EmailBundle\Document\EmailIdentity" />
+        <field fieldName="created" type="date" />
+        <field fieldName="isHtmlContent" type="boolean" />
+        <field fieldName="sendDate" type="date" />
+        <field fieldName="hasProcessed" type="boolean" />
+        <field fieldName="isProcessing" type="boolean" />
+        <reference-many field="userLists" target-document="San\UserListBundle\Document\UserList" />
+    </document>
+
+</doctrine-mongo-mapping>

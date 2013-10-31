@@ -1,0 +1,15 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <document name="San\EmailBundle\Document\Email" collection="san_email">
+        <field fieldName="id" id="true" />
+        <field fieldName="title" type="string" />
+        <field fieldName="subject" type="string" />
+        <field fieldName="text" type="string" />
+        <field fieldName="html" type="string" />
+        <field fieldName="created" type="date" />
+    </document>
+
+</doctrine-mongo-mapping>
