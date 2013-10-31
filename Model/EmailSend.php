@@ -19,6 +19,11 @@ class EmailSend
     protected $email;
 
     /**
+     * @var string
+     */
+    protected $sender;
+
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $userLists;
@@ -78,6 +83,29 @@ class EmailSend
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set sender
+     *
+     * @param string $sender
+     * @return Email
+     */
+    public function setSender($sender)
+    {
+        $this->sender = $sender;
+
+        return $this;
+    }
+
+    /**
+     * Get sender
+     *
+     * @return string
+     */
+    public function getSender()
+    {
+        return $this->sender;
     }
 
     /**

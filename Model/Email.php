@@ -24,11 +24,6 @@ class Email
     /**
      * @var string
      */
-    protected $sender;
-
-    /**
-     * @var string
-     */
     protected $text;
 
     /**
@@ -103,29 +98,6 @@ class Email
     public function getSubject()
     {
         return $this->subject;
-    }
-
-    /**
-     * Set sender
-     *
-     * @param string $sender
-     * @return Email
-     */
-    public function setSender($sender)
-    {
-        $this->sender = $sender;
-
-        return $this;
-    }
-
-    /**
-     * Get sender
-     *
-     * @return string
-     */
-    public function getSender()
-    {
-        return $this->sender;
     }
 
     /**

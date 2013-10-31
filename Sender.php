@@ -125,7 +125,7 @@ class Sender
     protected function createEmail(EmailSend $emailSend)
     {
         return $this->marketing->addEmail(array(
-            'identity' => $emailSend->getEmail()->getSender(),
+            'identity' => $emailSend->getSender()->getDescription(),
             'name'     => $this->getSendgridEmailName($emailSend),
             'subject'  => $emailSend->getEmail()->getSubject(),
             'text'     => $emailSend->getEmail()->getText(),

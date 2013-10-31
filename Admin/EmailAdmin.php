@@ -29,7 +29,6 @@ class EmailAdmin extends Admin
         $formMapper
             ->add('title')
             ->add('subject')
-            ->add('sender')
             ->add('text', 'textarea')
             ->add('html', 'textarea')
         ;
@@ -40,7 +39,6 @@ class EmailAdmin extends Admin
     {
         $datagridMapper
             ->add('subject')
-            ->add('sender')
         ;
     }
 
@@ -51,9 +49,9 @@ class EmailAdmin extends Admin
     {
         $collection
             ->add('send', 'send/{id}', array(
-                '_controller' => 'SanEmailBundle:Admin:send'
+                '_controller' => 'SanEmailBundle:Admin/EmailCRUD:send'
             ), array(
-                'id' => '\d+'
+                'id' => '\w+'
             ))
         ;
     }
@@ -64,7 +62,6 @@ class EmailAdmin extends Admin
         $listMapper
             ->add('title')
             ->add('subject')
-            ->add('sender')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'edit'   => array(),

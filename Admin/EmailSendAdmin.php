@@ -28,6 +28,7 @@ class EmailSendAdmin extends Admin
     {
         $showMapper
             ->add('email')
+            ->add('sender')
             ->add('userLists')
             ->add('isHtmlContent')
             ->add('sendDate')
@@ -48,6 +49,7 @@ class EmailSendAdmin extends Admin
     {
         $datagridMapper
             ->add('email')
+            ->add('sender')
         ;
     }
 
@@ -56,6 +58,7 @@ class EmailSendAdmin extends Admin
     {
         $listMapper
             ->add('email')
+            ->add('sender')
             ->add('userLists')
             ->add('isHtmlContent')
             ->add('sendDate')
