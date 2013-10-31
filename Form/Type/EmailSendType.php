@@ -14,6 +14,7 @@ class EmailSendType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('sender')
             ->add('userLists')
             ->add('isHtmlContent')
             ->add('sendDate', 'datetime', array(
