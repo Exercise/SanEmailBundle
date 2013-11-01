@@ -16,7 +16,9 @@ class EmailSendType extends AbstractType
         $builder
             ->add('sender')
             ->add('userLists')
-            ->add('isHtmlContent')
+            ->add('isHtmlContent', 'checkbox', array(
+                'required' => false
+            ))
             ->add('sendDate', 'datetime', array(
                 'required'    => false,
                 'date_widget' => 'single_text',
