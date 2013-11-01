@@ -124,13 +124,18 @@ class Sender
      */
     protected function createEmail(EmailSend $emailSend)
     {
-        return $this->marketing->addEmail(array(
+        $parameters = array(
             'identity' => $emailSend->getSender()->getDescription(),
             'name'     => $this->getSendgridEmailName($emailSend),
             'subject'  => $emailSend->getEmail()->getSubject(),
             'text'     => $emailSend->getEmail()->getText(),
-            'html'     => $emailSend->getEmail()->getHtml(),
-        ));
+        );
+
+        if ($emailSend->getIsHtmlContent()) {
+            $parameters['html'] = $emailSend->getEmail()->getHtml();
+        }
+
+        return $this->marketing->addEmail($parameters);
     }
 
     /**
