@@ -3,7 +3,8 @@
 namespace San\EmailBundle\Command;
 
 use Goutte\Client;
-use San\EmailBundle\Entity\EmailSendStats;
+use San\EmailBundle\Entity\EmailSendStats as EmailSendStatsEntity;
+use San\EmailBundle\Document\EmailSendStats as EmailSendStatsDocument;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -46,9 +47,9 @@ class UpdateStatsCommand extends ContainerAwareCommand
 
             $phpExcel = \PHPExcel_IOFactory::load($tempFilePath);
             if (!($emailSendStats = $emailSend->getStats())) {
-                $emailSendStats = new EmailSendStats();
+                $emailSendStats = $this->createEmailSendStats();
                 $emailSendStats->setEmailSend($emailSend);
-                $this->getContainer()->get('doctrine.orm.entity_manager')->persist($emailSendStats);
+                $this->getOm()->persist($emailSendStats);
             }
 
             foreach (array(
@@ -74,7 +75,7 @@ class UpdateStatsCommand extends ContainerAwareCommand
             $progress->advance();
         }
 
-        $this->getContainer()->get('doctrine.orm.entity_manager')->flush();
+        $this->getOm()->flush();
         $progress->finish();
     }
 
@@ -83,6 +84,30 @@ class UpdateStatsCommand extends ContainerAwareCommand
      */
     protected function getEmailSendRepository()
     {
-        return $this->getContainer()->get('doctrine')->getRepository("SanEmailBundle:EmailSend");
+        return $this->getOm()->getRepository("SanEmailBundle:EmailSend");
+    }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectManager
+     */
+    protected function getOm()
+    {
+        if ($this->getContainer()->get('san.admin.email_send_stats')->getManager() == 'orm') {
+            return $this->getContainer()->get('doctrine.orm.entity_manager');
+        }
+
+        return $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+    }
+
+    /**
+     * @return \San\EmailBundle\Model\EmailSendStats
+     */
+    protected function createEmailSendStats()
+    {
+        if ($this->getContainer()->get('san.admin.email_send_stats')->getManager() == 'orm') {
+            return new EmailSendStatsEntity();
+        }
+
+        return new EmailSendStatsDocument();
     }
 }

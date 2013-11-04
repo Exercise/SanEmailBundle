@@ -23,6 +23,14 @@ class EmailSendStatsAdmin extends Admin
         $this->manager = $manager;
     }
 
+    /**
+     * @return string
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
     // Fields to be shown on create/edit forms
     protected function configureShowFields(ShowMapper $showMapper)
     {

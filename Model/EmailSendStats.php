@@ -95,22 +95,9 @@ class EmailSendStats
     }
 
     /**
-     * Set emailSend
-     *
-     * @param \San\EmailBundle\Entity\EmailSend $emailSend
-     * @return EmailSendStats
-     */
-    public function setEmailSend(\San\EmailBundle\Entity\EmailSend $emailSend = null)
-    {
-        $this->emailSend = $emailSend;
-
-        return $this;
-    }
-
-    /**
      * Get emailSend
      *
-     * @return \San\EmailBundle\Entity\EmailSend
+     * @return \San\EmailBundle\Model\EmailSend
      */
     public function getEmailSend()
     {

@@ -13,6 +13,7 @@
         <field fieldName="hasProcessed" type="boolean" />
         <field fieldName="isProcessing" type="boolean" />
         <reference-many field="userLists" target-document="San\UserListBundle\Document\UserList" />
+        <reference-one field="stats" target-document="San\EmailBundle\Document\EmailSendStats" mapped-by="emailSend" />
     </document>
 
 </doctrine-mongo-mapping>

@@ -1,0 +1,25 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+
+    <document name="San\EmailBundle\Document\EmailSendStats" collection="san_email_send_stats">
+        <field fieldName="id" id="true" />
+        <reference-one field="emailSend" target-document="San\EmailBundle\Document\EmailSend" inversed-by="stats" />
+        <field fieldName="attempted" type="int" />
+        <field fieldName="delivered" type="int" />
+        <field fieldName="opens" type="int" />
+        <field fieldName="uniqueOpens" type="int" />
+        <field fieldName="clicks" type="int" />
+        <field fieldName="uniqueClicks" type="int" />
+        <field fieldName="ctr" type="float" />
+        <field fieldName="tctr" type="float" />
+        <field fieldName="bounces" type="int" />
+        <field fieldName="spamReport" type="int" />
+        <field fieldName="repeatSpamReport" type="int" />
+        <field fieldName="unsubscribes" type="int" />
+        <field fieldName="repeatBounces" type="int" />
+        <field fieldName="invalidEmail" type="int" />
+    </document>
+
+</doctrine-mongo-mapping>

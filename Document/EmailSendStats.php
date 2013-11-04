@@ -1,8 +1,8 @@
 <?php
 
-namespace San\EmailBundle\Entity;
+namespace San\EmailBundle\Document;
 
-use San\EmailBundle\Entity\EmailSend;
+use San\EmailBundle\Document\EmailSend;
 use San\EmailBundle\Model\EmailSendStats as BaseEmailSendStats;
 
 class EmailSendStats extends BaseEmailSendStats
@@ -10,7 +10,7 @@ class EmailSendStats extends BaseEmailSendStats
     /**
      * Set emailSend
      *
-     * @param \San\EmailBundle\Entity\EmailSend $emailSend
+     * @param \San\EmailBundle\Document\EmailSend $emailSend
      * @return EmailSendStats
      */
     public function setEmailSend(EmailSend $emailSend = null)
