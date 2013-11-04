@@ -25,6 +25,7 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
+        <one-to-one field="stats" target-entity="San\EmailBundle\Entity\EmailSendStats" mapped-by="emailSend" />
     </entity>
 
 </doctrine-mapping>

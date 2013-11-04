@@ -96,7 +96,7 @@ class Sender
     protected function scheduleEmail(EmailSend $emailSend)
     {
         $parameters = array(
-            'name' => $this->getSendgridEmailName($emailSend)
+            'name' => $emailSend->getSendgridEmailName()
         );
 
         if ($emailSend->getSendDate()) {
@@ -114,7 +114,7 @@ class Sender
     {
         return $this->marketing->addRecipientsToEmail(array(
             'list' => $this->getSendgridListName($emailSend),
-            'name' => $this->getSendgridEmailName($emailSend),
+            'name' => $emailSend->getSendgridEmailName(),
         ));
     }
 
@@ -126,7 +126,7 @@ class Sender
     {
         $parameters = array(
             'identity' => $emailSend->getSender()->getDescription(),
-            'name'     => $this->getSendgridEmailName($emailSend),
+            'name'     => $emailSend->getSendgridEmailName(),
             'subject'  => $emailSend->getEmail()->getSubject(),
             'text'     => $emailSend->getEmail()->getText(),
         );
@@ -173,15 +173,6 @@ class Sender
     protected function getSendgridListName(EmailSend $emailSend)
     {
         return sprintf("[%s] %s", $emailSend->getCreated()->format('d/m/Y h:i'), $emailSend->getEmail()->getTitle());
-    }
-
-    /**
-     * @param  EmailSend  $emailSend
-     * @return string
-     */
-    protected function getSendgridEmailName(EmailSend $emailSend)
-    {
-        return sprintf("[%s] %s", $emailSend->getCreated()->format('d/m/Y h:i'), $emailSend->getEmail()->getSubject());
     }
 
     /**

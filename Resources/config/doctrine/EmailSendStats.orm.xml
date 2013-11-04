@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                  http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="San\EmailBundle\Entity\EmailSendStats" table="san_email_send_stats">
+        <id name="id" type="integer">
+            <generator strategy="AUTO" />
+        </id>
+        <one-to-one field="emailSend" target-entity="San\EmailBundle\Entity\EmailSend" inversed-by="stats" />
+        <field name="attempted" type="integer" />
+        <field name="delivered" type="integer" />
+        <field name="opens" type="integer" />
+        <field name="uniqueOpens" type="integer" />
+        <field name="clicks" type="integer" />
+        <field name="uniqueClicks" type="integer" />
+        <field name="ctr" type="float" />
+        <field name="tctr" type="float" />
+        <field name="bounces" type="integer" />
+        <field name="spamReport" type="integer" />
+        <field name="repeatSpamReport" type="integer" />
+        <field name="unsubscribes" type="integer" />
+        <field name="repeatBounces" type="integer" />
+        <field name="invalidEmail" type="integer" />
+    </entity>
+
+</doctrine-mapping>

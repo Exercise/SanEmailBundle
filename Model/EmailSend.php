@@ -54,6 +54,11 @@ class EmailSend
     protected $isProcessing = false;
 
     /**
+     * @var \San\EmailBundle\Model\EmailSendStats
+     */
+    protected $stats;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -241,5 +246,44 @@ class EmailSend
     public function getIsProcessing()
     {
         return $this->isProcessing;
+    }
+
+    /**
+     * Set stats
+     *
+     * @param \San\EmailBundle\Entity\EmailSendStats $stats
+     * @return EmailSend
+     */
+    public function setStats(\San\EmailBundle\Model\EmailSendStats $stats = null)
+    {
+        $this->stats = $stats;
+
+        return $this;
+    }
+
+    /**
+     * Get stats
+     *
+     * @return \San\EmailBundle\Entity\EmailSendStats
+     */
+    public function getStats()
+    {
+        return $this->stats;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSendgridEmailName()
+    {
+        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getEmail()->getSubject());
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf("[%s] %s", $this->created->format('d/m/Y'), $this->email->getSubject());
     }
 }

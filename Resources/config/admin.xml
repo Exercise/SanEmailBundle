@@ -27,6 +27,20 @@
             <call method="setTranslationDomain">
                 <argument>SanEmailBundle</argument>
             </call>
+            <call method="setEmailStatsAdmin">
+                <argument type="service" id="san.admin.email_send_stats" />
+            </call>
+        </service>
+
+        <service id="san.admin.email_send_stats" class="San\EmailBundle\Admin\EmailSendStatsAdmin">
+            <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Send Stats"/>
+            <tag name="san.admin" />
+            <argument />
+            <argument>San\EmailBundle\Entity\EmailSendStats</argument>
+            <argument></argument>
+            <call method="setTranslationDomain">
+                <argument>SanEmailBundle</argument>
+            </call>
         </service>
 
         <service id="san.admin.email_identity" class="San\EmailBundle\Admin\EmailIdentityAdmin">
