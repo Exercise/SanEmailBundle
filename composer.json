@@ -10,7 +10,8 @@
     ],
     "require": {
         "san/user-list-bundle": "dev-master",
-        "exercise/sendgrid-bundle": "dev-master"
+        "exercise/sendgrid-bundle": "dev-master",
+        "phpoffice/phpexcel": "dev-develop"
     },
     "autoload": {
         "psr-0": { "San\\EmailBundle": "" }
