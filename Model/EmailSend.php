@@ -59,6 +59,11 @@ class EmailSend
     protected $stats;
 
     /**
+     * @var boolean
+     */
+    protected $hasList = false;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -282,8 +287,39 @@ class EmailSend
     /**
      * @return string
      */
+    public function getSendgridListName()
+    {
+        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getEmail()->getTitle());
+    }
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return sprintf("[%s] %s", $this->created->format('d/m/Y'), $this->email->getSubject());
+    }
+
+    /**
+     * Set hasList
+     *
+     * @param boolean $hasList
+     * @return EmailSend
+     */
+    public function setHasList($hasList)
+    {
+        $this->hasList = $hasList;
+
+        return $this;
+    }
+
+    /**
+     * Get hasList
+     *
+     * @return boolean
+     */
+    public function getHasList()
+    {
+        return $this->hasList;
     }
 }

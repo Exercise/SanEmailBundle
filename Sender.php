@@ -78,8 +78,6 @@ class Sender
         }
 
         $this->createEmail($emailSend);
-        $this->addListToEmail($emailSend);
-        $this->scheduleEmail($emailSend);
         $emailSend
             ->setIsProcessing(false)
             ->setHasProcessed(true)
@@ -87,35 +85,6 @@ class Sender
         $this->om->flush($emailSend);
 
         return true;
-    }
-
-    /**
-     * @param  EmailSend $emailSend
-     * @return \Guzzle\Http\Message\Response
-     */
-    protected function scheduleEmail(EmailSend $emailSend)
-    {
-        $parameters = array(
-            'name' => $emailSend->getSendgridEmailName()
-        );
-
-        if ($emailSend->getSendDate()) {
-            $parameters['at'] = $emailSend->getSendDate()->format('Y-m-d h:i:s');
-        }
-
-        return $this->marketing->scheduleEmail($parameters);
-    }
-
-    /**
-     * @param EmailSend $emailSend
-     * @return \Guzzle\Http\Message\Response
-     */
-    protected function addListToEmail(EmailSend $emailSend)
-    {
-        return $this->marketing->addRecipientsToEmail(array(
-            'list' => $this->getSendgridListName($emailSend),
-            'name' => $emailSend->getSendgridEmailName(),
-        ));
     }
 
     /**
@@ -145,7 +114,7 @@ class Sender
     protected function createList(EmailSend $emailSend)
     {
         return $this->marketing->addList(array(
-            'list' => $this->getSendgridListName($emailSend)
+            'list' => $emailSend->getSendgridListName()
         ));
     }
 
@@ -161,18 +130,9 @@ class Sender
         }
 
         return $this->marketing->addEmailsToList(array(
-            'list' => $this->getSendgridListName($emailSend),
+            'list' => $emailSend->getSendgridListName(),
             'data' => $preparedEmails,
         ));
-    }
-
-    /**
-     * @param  EmailSend $emailSend
-     * @return string
-     */
-    protected function getSendgridListName(EmailSend $emailSend)
-    {
-        return sprintf("[%s] %s", $emailSend->getCreated()->format('d/m/Y h:i'), $emailSend->getEmail()->getTitle());
     }
 
     /**

@@ -20,4 +20,19 @@ class EmailSendRepository extends DocumentRepository
             ->getSingleResult()
         ;
     }
+
+    /**
+     * @return \Doctrine\MongoDB\LoggableCursor
+     */
+    public function findWithoutList()
+    {
+        return $this
+            ->createQueryBuilder()
+            ->field('hasList')->equals(false)
+            ->field('isProcessing')->equals(false)
+            ->field('hasProcessed')->equals(true)
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }

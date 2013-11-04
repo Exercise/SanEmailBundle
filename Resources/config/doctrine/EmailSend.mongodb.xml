@@ -14,6 +14,7 @@
         <field fieldName="isProcessing" type="boolean" />
         <reference-many field="userLists" target-document="San\UserListBundle\Document\UserList" />
         <reference-one field="stats" target-document="San\EmailBundle\Document\EmailSendStats" mapped-by="emailSend" />
+        <field fieldName="hasList" type="boolean" />
     </document>
 
 </doctrine-mongo-mapping>

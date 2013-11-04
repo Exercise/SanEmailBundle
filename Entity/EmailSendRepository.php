@@ -21,4 +21,19 @@ class EmailSendRepository extends EntityRepository
             ->getOneOrNullResult()
         ;
     }
+
+    /**
+     * @return array
+     */
+    public function findWithoutList()
+    {
+        return $this
+            ->createQueryBuilder('es')
+            ->where('es.hasList = 0')
+            ->andWhere('es.isProcessing = 0')
+            ->andWhere('es.hasProcessed = 1')
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }
