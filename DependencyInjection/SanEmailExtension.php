@@ -41,6 +41,12 @@ class SanEmailExtension extends Extension
             $adminClass->addMethodCall('setManager', array($manager));
         }
 
+        if ($manager == 'orm') {
+            $container->removeDefinition('san_email.sender.doctrine_mongodb');
+        } else {
+            $container->removeDefinition('san_email.sender.orm');
+        }
+
         $senderClass = $container->getDefinition(sprintf('san_email.sender.%s', $manager));
         $senderClass->setTags(array(
             'kernel.event_listener' => array(
