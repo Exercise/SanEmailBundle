@@ -1,10 +1,10 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
 
 {% block form %}
-    <h4>Send "<a href="{{ admin.generateUrl('edit', {'id': object.email.id}) }}">{{ object.email }}</a>" email</h4>
+    <h4>Send "<a href="{{ admin.generateUrl('edit', {'id': email.id}) }}">{{ email }}</a>" email</h4>
     {% set url = 'send' %}
     <form class="form-horizontal"
-          action="{{ admin.generateUrl(url, {'id': object.email.id, 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
+          action="{{ admin.generateUrl(url, {'id': email.id, 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
           method="POST"
           {% if not admin_pool.getOption('html5_validate') %}novalidate="novalidate"{% endif %}
           >

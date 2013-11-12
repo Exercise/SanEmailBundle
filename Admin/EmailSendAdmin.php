@@ -65,7 +65,8 @@ class EmailSendAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('email')
+            ->add('title')
+            ->add('subject')
             ->add('sender')
         ;
     }
@@ -74,7 +75,7 @@ class EmailSendAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('email', null, array('template' => 'SanEmailBundle:Admin/CRUD:list__action_email.html.twig'))
+            ->add('title')
             ->add('sender')
             ->add('userLists')
             ->add('isHtmlContent')

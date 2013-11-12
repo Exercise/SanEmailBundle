@@ -91,8 +91,8 @@ class Sender
         $parameters = array(
             'identity' => $emailSend->getSender()->getDescription(),
             'name'     => $emailSend->getSendgridEmailName(),
-            'subject'  => $emailSend->getEmail()->getSubject(),
-            'text'     => $emailSend->getEmail()->getText(),
+            'subject'  => $emailSend->getSubject(),
+            'text'     => $emailSend->getText(),
         );
 
         if ($emailSend->getIsHtmlContent()) {

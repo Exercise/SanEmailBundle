@@ -36,7 +36,12 @@ class EmailCRUDController extends CRUDController
             $emailSend = new EmailSendDocument();
         }
 
-        $emailSend->setEmail($object);
+        $emailSend
+            ->setTitle($object->getTitle())
+            ->setSubject($object->getSubject())
+            ->setText($object->getText())
+            ->setHtml($object->getHtml())
+        ;
         $form = $this->createForm(new EmailSendType(), $emailSend);
         if ($request->isMethod('POST')) {
             $emailSend->setIsTest((bool) $request->request->get('btn_test'));
@@ -53,6 +58,7 @@ class EmailCRUDController extends CRUDController
             'action' => 'send',
             'form'   => $form->createView(),
             'object' => $emailSend,
+            'email'  => $object
         ));
     }
 }

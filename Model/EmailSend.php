@@ -14,9 +14,24 @@ class EmailSend
     protected $id;
 
     /**
-     * @var \San\EmailBundle\Entity\Email;
+     * @var string
      */
-    protected $email;
+    protected $title;
+
+    /**
+     * @var string
+     */
+    protected $subject;
+
+    /**
+     * @var string
+     */
+    protected $text;
+
+    /**
+     * @var string
+     */
+    protected $html;
 
     /**
      * @var string
@@ -91,26 +106,95 @@ class EmailSend
     }
 
     /**
-     * Set email
+     * Set title
      *
-     * @param \San\EmailBundle\Entity\Email $email
-     * @return EmailSend
+     * @param string $title
+     * @return Email
      */
-    public function setEmail(Email $email = null)
+    public function setTitle($title)
     {
-        $this->email = $email;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get email
+     * Get title
      *
-     * @return \San\EmailBundle\Entity\Email
+     * @return string
      */
-    public function getEmail()
+    public function getTitle()
     {
-        return $this->email;
+        return $this->title;
+    }
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     * @return Email
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
+
+    /**
+     * Set text
+     *
+     * @param string $text
+     * @return Email
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set html
+     *
+     * @param string $html
+     * @return Email
+     */
+    public function setHtml($html)
+    {
+        $this->html = $html;
+
+        return $this;
+    }
+
+    /**
+     * Get html
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->html;
     }
 
     /**
@@ -299,7 +383,7 @@ class EmailSend
      */
     public function getSendgridEmailName()
     {
-        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getEmail()->getSubject());
+        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getSubject());
     }
 
     /**
@@ -307,7 +391,7 @@ class EmailSend
      */
     public function getSendgridListName()
     {
-        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getEmail()->getTitle());
+        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getTitle());
     }
 
     /**
@@ -384,6 +468,6 @@ class EmailSend
      */
     public function __toString()
     {
-        return sprintf("[%s] %s", $this->created->format('d/m/Y'), $this->email->getSubject());
+        return sprintf("[%s] %s", $this->created->format('d/m/Y'), $this->getSubject());
     }
 }
