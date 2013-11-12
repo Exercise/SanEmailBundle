@@ -6,9 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Exercise\Sendgrid\Common\Sendgrid;
 use San\EmailBundle\Model\Email;
 use San\EmailBundle\Model\EmailSend;
-use San\UserListBundle\Admin\UserDynamicListAdmin;
-use San\UserListBundle\Model\UserStaticListInterface;
-use San\UserListBundle\Model\UserDynamicListInterface;
+use San\UserListBundle\Admin\UserListAdmin;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 
 class Sender
@@ -16,7 +14,7 @@ class Sender
     /**
      * @var \Exercose\Sendgrid\Marketing\MarketingClient
      */
-    protected  $marketing;
+    protected $marketing;
 
     /**
      * @var \Doctrine\Common\Persistence\ObjectManager
@@ -24,18 +22,18 @@ class Sender
     protected $om;
 
     /**
-     * @var \San\UserListBundle\Admin\UserDynamicListAdmin
+     * @var \San\UserListBundle\Admin\UserListAdmin
      */
-    protected $userDynamicListAdmin;
+    protected $userListAdmin;
 
     /**
      * @param Sendgrid $sendgrid
      */
-    public function __construct(Sendgrid $sendgrid, ObjectManager $om, UserDynamicListAdmin $userDynamicListAdmin)
+    public function __construct(Sendgrid $sendgrid, ObjectManager $om, UserListAdmin $userListAdmin)
     {
         $this->marketing = $sendgrid->get('marketing');
         $this->om = $om;
-        $this->userDynamicListAdmin = $userDynamicListAdmin;
+        $this->userListAdmin = $userListAdmin;
     }
 
     /**
@@ -58,15 +56,12 @@ class Sender
         $this->om->flush($emailSend);
 
         $receivers = array();
-        foreach ($emailSend->getUserLists() as $userList) {
-            if ($userList instanceof UserStaticListInterface) {
-                $staticListUsers = $this->getUserStaticListRepository()->getEmailsByList($userList);
-                foreach ($staticListUsers as $value) {
-                    $receivers[$value['email']] = $value['username'];
-                }
-            } elseif ($userList instanceof UserDynamicListInterface) {
-                $userDynamicListUsers = $this->userDynamicListAdmin->getUsers($userList);
-                foreach ($userDynamicListUsers as $value) {
+        if ($emailSend->getIsTest()) {
+            $receivers = array_combine($emailSend->getTestEmails(), $emailSend->getTestEmails());
+        } else {
+            foreach ($emailSend->getUserLists() as $userList) {
+                $listUsers = $this->userListAdmin->getUsers($userList);
+                foreach ($listUsers as $value) {
                     $receivers[$value->getEmail()] = $value->getUsername();
                 }
             }
@@ -141,13 +136,5 @@ class Sender
     protected function getEmailSendRepository()
     {
         return $this->om->getRepository('SanEmailBundle:EmailSend');
-    }
-
-    /**
-     * @return \San\UserBundle\Entity\UserStaticListRepository|\San\UserBundle\Document\UserStaticListRepository
-     */
-    protected function getUserStaticListRepository()
-    {
-        return $this->om->getRepository('SanUserListBundle:UserStaticList');
     }
 }

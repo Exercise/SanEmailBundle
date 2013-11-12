@@ -12,7 +12,8 @@
         "san/user-list-bundle": "dev-master",
         "exercise/sendgrid-bundle": "dev-master",
         "phpoffice/phpexcel": "dev-develop",
-        "fabpot/goutte": "1.0.*@dev"
+        "fabpot/goutte": "1.0.*@dev",
+        "symfony/validator": "~2.1"
     },
     "autoload": {
         "psr-0": { "San\\EmailBundle": "" }

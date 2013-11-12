@@ -86,7 +86,7 @@ class EmailSendAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('email')
+            ->add('email', null, array('template' => 'SanEmailBundle:Admin/CRUD:list__action_email.html.twig'))
             ->add('sender')
             ->add('userLists')
             ->add('isHtmlContent')

@@ -46,18 +46,8 @@
 
         {% block formactions %}
             <div class="well well-small form-actions">
-                {% if app.request.isxmlhttprequest %}
-                    <input type="submit" class="btn" name="btn_create" value="{{ 'btn_create'|trans({}, 'SonataAdminBundle') }}"/>
-                {% else %}
-                    {% if admin.supportsPreviewMode %}
-                        <button class="btn btn-info persist-preview" name="btn_preview" type="submit">
-                            <i class="icon-eye-open"></i>
-                            {{ 'btn_preview'|trans({}, 'SonataAdminBundle') }}
-                        </button>
-                    {% else %}
-                        <input type="submit" class="btn btn-primary" name="btn_create_and_list" value="{{ 'btn_create_and_return_to_list'|trans({}, 'SonataAdminBundle') }}"/>
-                    {% endif %}
-                {% endif %}
+                <input type="submit" class="btn btn-primary" name="btn_send" value="Send"/>
+                <input type="submit" class="btn" name="btn_test" value="Send a test"/>
             </div>
         {% endblock formactions %}
     </form>

@@ -39,6 +39,7 @@ class EmailCRUDController extends CRUDController
         $emailSend->setEmail($object);
         $form = $this->createForm(new EmailSendType(), $emailSend);
         if ($request->isMethod('POST')) {
+            $emailSend->setIsTest((bool) $request->request->get('btn_test'));
             $form->handleRequest($request);
             if ($form->isValid()) {
                 $om->persist($emailSend);

@@ -24,6 +24,7 @@ class EmailSendType extends AbstractType
                 'date_widget' => 'single_text',
                 'time_widget' => 'choice',
             ))
+            ->add('testEmails', 'san_emails')
         ;
     }
 

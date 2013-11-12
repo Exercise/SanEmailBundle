@@ -64,12 +64,30 @@ class EmailSend
     protected $hasList = false;
 
     /**
+     * @var array
+     */
+    protected $testEmails = array();
+
+    /**
+     * @var boolean
+     */
+    protected $isTest;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->created = new \DateTime();
         $this->userLists = new ArrayCollection();
+    }
+
+    /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -293,14 +311,6 @@ class EmailSend
     }
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return sprintf("[%s] %s", $this->created->format('d/m/Y'), $this->email->getSubject());
-    }
-
-    /**
      * Set hasList
      *
      * @param boolean $hasList
@@ -321,5 +331,59 @@ class EmailSend
     public function getHasList()
     {
         return $this->hasList;
+    }
+
+    /**
+     * Set testEmails
+     *
+     * @param array $testEmails
+     * @return EmailSend
+     */
+    public function setTestEmails(array $testEmails)
+    {
+        $this->testEmails = $testEmails;
+
+        return $this;
+    }
+
+    /**
+     * Get testEmails
+     *
+     * @return array
+     */
+    public function getTestEmails()
+    {
+        return $this->testEmails;
+    }
+
+    /**
+     * Set isTest
+     *
+     * @param boolean $isTest
+     * @return EmailSend
+     */
+    public function setIsTest($isTest)
+    {
+        $this->isTest = $isTest;
+
+        return $this;
+    }
+
+    /**
+     * Get isTest
+     *
+     * @return boolean
+     */
+    public function getIsTest()
+    {
+        return $this->isTest;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf("[%s] %s", $this->created->format('d/m/Y'), $this->email->getSubject());
     }
 }

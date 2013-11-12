@@ -27,6 +27,8 @@
         </many-to-many>
         <one-to-one field="stats" target-entity="San\EmailBundle\Entity\EmailSendStats" mapped-by="emailSend" />
         <field name="hasList" type="boolean" />
+        <field name="testEmails" type="array" />
+        <field name="isTest" type="boolean" />
     </entity>
 
 </doctrine-mapping>

@@ -13,13 +13,13 @@
         <service id="san_email.sender.orm" class="%san_email.sender.class%">
             <argument type="service" id="exercise.sendgrid" />
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="san.admin.user_dynamic_list" strict="false" />
+            <argument type="service" id="san.admin.user_list" strict="false" />
         </service>
 
         <service id="san_email.sender.doctrine_mongodb" class="%san_email.sender.class%">
             <argument type="service" id="exercise.sendgrid" />
             <argument type="service" id="doctrine.odm.mongodb.document_manager" />
-            <argument type="service" id="san.admin.user_dynamic_list" strict="false" />
+            <argument type="service" id="san.admin.user_list" strict="false" />
         </service>
 
     </services>

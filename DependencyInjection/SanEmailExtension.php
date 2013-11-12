@@ -20,6 +20,7 @@ class SanEmailExtension extends Extension
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('admin.xml');
+        $loader->load('form.xml');
         $loader->load('services.xml');
 
         $manager = $container->getParameter('san_email.manager');
