@@ -13,6 +13,26 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class EmailCRUDController extends CRUDController
 {
     /**
+     * return the Response object associated to the edit action
+     *
+     *
+     * @param mixed $id
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     *
+     * @return Response
+     */
+    public function editAction($id = null)
+    {
+        if ($this->get('request')->request->get('btn_send')) {
+            return $this->redirect($this->admin->generateUrl('send', array('id' => $id)));
+        }
+
+        return parent::editAction($id);
+    }
+
+    /**
      * @param  Request  $request
      * @param  integer  $id
      * @return Response

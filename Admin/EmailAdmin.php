@@ -29,8 +29,18 @@ class EmailAdmin extends Admin
         $formMapper
             ->add('title')
             ->add('subject')
-            ->add('text', 'textarea')
-            ->add('html', 'textarea')
+            ->add('text', 'textarea', array(
+                'attr' => array(
+                    'class' => 'preview span5',
+                    'rows'  => '8'
+                )
+            ))
+            ->add('html', 'textarea', array(
+                'attr' => array(
+                    'class' => 'preview span5',
+                    'rows'  => '8'
+                )
+            ))
         ;
     }
 
@@ -40,6 +50,18 @@ class EmailAdmin extends Admin
         $datagridMapper
             ->add('subject')
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTemplate($name)
+    {
+        if ($name == 'edit') {
+            return 'SanEmailBundle:Admin/CRUD:email_edit.html.twig';
+        }
+
+        return parent::getTemplate($name);
     }
 
     /**
