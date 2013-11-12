@@ -37,18 +37,6 @@ class EmailSendAdmin extends Admin
         $this->emailSendStatsAdmin = $emailSendStatsAdmin;
     }
 
-    // Fields to be shown on create/edit forms
-    protected function configureShowFields(ShowMapper $showMapper)
-    {
-        $showMapper
-            ->add('email')
-            ->add('sender')
-            ->add('userLists')
-            ->add('isHtmlContent')
-            ->add('sendDate')
-        ;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -94,7 +82,6 @@ class EmailSendAdmin extends Admin
             ->add('created')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
                     'stats' => array('template' => 'SanEmailBundle:Admin/CRUD:list__action_stats.html.twig'),
                 )
             ))
