@@ -2,7 +2,6 @@
 
 namespace San\EmailBundle\Admin;
 
-use San\EmailBundle\Admin\EmailSendStatsAdmin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -17,11 +16,6 @@ class EmailSendAdmin extends Admin
     protected $manager;
 
     /**
-     * @var \San\EmailBundle\Admin\EmailSendStatsAdmin
-     */
-    protected $emailSendStatsAdmin;
-
-    /**
      * @param string $manager
      */
     public function setManager($manager)
@@ -30,23 +24,40 @@ class EmailSendAdmin extends Admin
     }
 
     /**
-     * @param EmailStatsAdmin $emailSendStatsAdmin
+     * @return string
      */
-    public function setEmailStatsAdmin(EmailSendStatsAdmin $emailSendStatsAdmin)
+    public function getManager()
     {
-        $this->emailSendStatsAdmin = $emailSendStatsAdmin;
+        return $this->manager;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function generateUrl($name, array $parameters = array(), $absolute = false)
+    protected function configureShowField(ShowMapper $showMapper)
     {
-        if ($name == 'stats') {
-            return $this->emailSendStatsAdmin->generateUrl('show', $parameters);
-        }
-
-        return $this->routeGenerator->generateUrl($this, $name, $parameters, $absolute);
+        $showMapper
+            ->add('title')
+            ->add('sender')
+            ->add('userLists')
+            ->add('isHtmlContent')
+            ->add('sendDate')
+            ->add('created')
+            ->add('attempted')
+            ->add('delivered')
+            ->add('opens')
+            ->add('uniqueOpens')
+            ->add('clicks')
+            ->add('uniqueClicks')
+            ->add('ctr', 'percent')
+            ->add('tctr', 'percent')
+            ->add('bounces')
+            ->add('spamReport')
+            ->add('repeatSpamReport')
+            ->add('unsubscribes')
+            ->add('repeatBounces')
+            ->add('invalidEmail')
+        ;
     }
 
     /**
@@ -81,9 +92,13 @@ class EmailSendAdmin extends Admin
             ->add('isHtmlContent')
             ->add('sendDate')
             ->add('created')
+            ->add('attempted')
+            ->add('delivered')
+            ->add('opens')
+            ->add('clicks')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'stats' => array('template' => 'SanEmailBundle:Admin/CRUD:list__action_stats.html.twig'),
+                    'show' => array()
                 )
             ))
         ;

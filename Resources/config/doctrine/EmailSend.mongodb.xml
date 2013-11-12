@@ -16,10 +16,23 @@
         <field fieldName="hasProcessed" type="boolean" />
         <field fieldName="isProcessing" type="boolean" />
         <reference-many field="userLists" target-document="San\UserListBundle\Document\UserList" />
-        <reference-one field="stats" target-document="San\EmailBundle\Document\EmailSendStats" mapped-by="emailSend" />
         <field fieldName="hasList" type="boolean" />
         <field fieldName="testEmails" type="collection" />
         <field fieldName="isTest" type="boolean" />
+        <field fieldName="attempted" type="int" />
+        <field fieldName="delivered" type="int" />
+        <field fieldName="opens" type="int" />
+        <field fieldName="uniqueOpens" type="int" />
+        <field fieldName="clicks" type="int" />
+        <field fieldName="uniqueClicks" type="int" />
+        <field fieldName="ctr" type="float" />
+        <field fieldName="tctr" type="float" />
+        <field fieldName="bounces" type="int" />
+        <field fieldName="spamReport" type="int" />
+        <field fieldName="repeatSpamReport" type="int" />
+        <field fieldName="unsubscribes" type="int" />
+        <field fieldName="repeatBounces" type="int" />
+        <field fieldName="invalidEmail" type="int" />
     </document>
 
 </doctrine-mongo-mapping>

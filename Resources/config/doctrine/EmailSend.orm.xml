@@ -28,10 +28,23 @@
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
-        <one-to-one field="stats" target-entity="San\EmailBundle\Entity\EmailSendStats" mapped-by="emailSend" />
         <field name="hasList" type="boolean" />
         <field name="testEmails" type="array" />
         <field name="isTest" type="boolean" />
+        <field name="attempted" type="integer" />
+        <field name="delivered" type="integer" />
+        <field name="opens" type="integer" />
+        <field name="uniqueOpens" type="integer" />
+        <field name="clicks" type="integer" />
+        <field name="uniqueClicks" type="integer" />
+        <field name="ctr" type="float" />
+        <field name="tctr" type="float" />
+        <field name="bounces" type="integer" />
+        <field name="spamReport" type="integer" />
+        <field name="repeatSpamReport" type="integer" />
+        <field name="unsubscribes" type="integer" />
+        <field name="repeatBounces" type="integer" />
+        <field name="invalidEmail" type="integer" />
     </entity>
 
 </doctrine-mapping>
