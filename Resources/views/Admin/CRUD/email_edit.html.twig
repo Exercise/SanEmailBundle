@@ -14,6 +14,7 @@
                 <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}">{{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
             {% endif %}
         {% else %}
+            <input class="btn btn-primary" type="submit" name="btn_create_and_send" value="Create and send"/>
             {% if admin.hasroute('edit') %}
                 <input class="btn btn-primary" type="submit" name="btn_create_and_edit" value="{{ 'btn_create_and_edit_again'|trans({}, 'SonataAdminBundle') }}"/>
             {% endif %}
@@ -27,28 +28,5 @@
 
 {% block footer %}
     {{ parent() }}
-
-    <div class="modal fade" id="previewEmail" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Email preview</h4>
-                </div>
-                <div class="modal-body"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        $("<div class='btn-group'><button class='btn btn-default preview' type='button'>Preview</button></div>").insertAfter(".preview");
-        $('button.preview').click(function(){
-            var text = $(this).parent().parent().find('textarea.preview').val();
-            $('#previewEmail .modal-body').html(text)
-            $('#previewEmail').modal({});
-        })
-    </script>
+    {% include 'SanEmailBundle:Admin/CRUD:preview_modal.html.twig' %}
 {% endblock %}

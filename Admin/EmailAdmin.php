@@ -64,20 +64,6 @@ class EmailAdmin extends Admin
         return parent::getTemplate($name);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected function configureRoutes(RouteCollection $collection)
-    {
-        $collection
-            ->add('send', 'send/{id}', array(
-                '_controller' => 'SanEmailBundle:Admin/EmailCRUD:send'
-            ), array(
-                'id' => '\w+'
-            ))
-        ;
-    }
-
     // Fields to be shown on lists
     protected function configureListFields(ListMapper $listMapper)
     {

@@ -5,6 +5,7 @@ namespace San\EmailBundle\Admin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 
@@ -29,6 +30,40 @@ class EmailSendAdmin extends Admin
     public function getManager()
     {
         return $this->manager;
+    }
+
+    protected function configureFormFields(FormMapper $formMapper)
+    {
+        $formMapper
+            ->add('sender')
+            ->add('title')
+            ->add('subject')
+            ->add('userLists', null, array(
+                'expanded' => false
+            ))
+            ->add('isHtmlContent', 'checkbox', array(
+                'required' => false
+            ))
+            ->add('sendDate', 'datetime', array(
+                'required'    => false,
+                'date_widget' => 'single_text',
+                'time_widget' => 'choice',
+                'date_format' => \IntlDateFormatter::SHORT,
+            ))
+            ->add('testEmails', 'san_emails')
+            ->add('text', 'textarea', array(
+                'attr' => array(
+                    'class' => 'preview span5',
+                    'rows'  => '8'
+                )
+            ))
+            ->add('html', 'textarea', array(
+                'attr' => array(
+                    'class' => 'preview span5',
+                    'rows'  => '8'
+                )
+            ))
+        ;
     }
 
     /**
@@ -66,7 +101,6 @@ class EmailSendAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
-            ->remove('create')
             ->remove('delete')
             ->remove('edit')
         ;
@@ -75,9 +109,17 @@ class EmailSendAdmin extends Admin
     // Fields to be shown on filter forms
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
+        $dateType = 'san_orm_date';
+        if ($this->manager != 'orm') {
+            $dateType = 'san_mongodb_date';
+        }
+
         $datagridMapper
             ->add('title')
-            ->add('subject')
+            ->add('isHtmlContent')
+            ->add('created', $dateType, array(), null, array(
+                'label' => 'Created after'
+            ))
             ->add('sender')
         ;
     }
@@ -102,5 +144,20 @@ class EmailSendAdmin extends Admin
                 )
             ))
         ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'edit':
+                return 'SanEmailBundle:Admin/CRUD:email_send.html.twig';
+            case 'list':
+                return 'SanEmailBundle:Admin/CRUD:email_send_list.html.twig';
+            default:
+                return parent::getTemplate($name);
+        }
     }
 }

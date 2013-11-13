@@ -2,15 +2,9 @@
 
 namespace San\EmailBundle\Controller\Admin;
 
-use San\EmailBundle\Document\EmailSend as EmailSendDocument;
-use San\EmailBundle\Entity\EmailSend as EmailSendEntity;
-use San\EmailBundle\Form\Type\EmailSendType;
 use Sonata\AdminBundle\Controller\CRUDController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class EmailCRUDController extends CRUDController
+class EmailSendCRUDController extends CRUDController
 {
     /**
      * return the Response object associated to the create action
@@ -28,22 +22,39 @@ class EmailCRUDController extends CRUDController
         }
 
         $object = $this->admin->getNewInstance();
+        if (!($id = $this->get('request')->query->get('id'))) {
+            return $this->redirect($this->get('san.admin.email')->generateUrl('list'));
+        }
 
+        if ($this->container->getParameter('san_email.manager') == 'orm') {
+            $om = $this->getDoctrine()->getManager();
+        } else {
+            $om = $this->get('doctrine.odm.mongodb.document_manager');
+        }
+
+        if (!($email = $om->getRepository('SanEmailBundle:Email')->find($id))) {
+            return $this->redirect($this->get('san.admin.email')->generateUrl('list'));
+        }
+
+        $object
+            ->setTitle($email->getTitle())
+            ->setSubject($email->getSubject())
+            ->setText($email->getText())
+            ->setHtml($email->getHtml())
+        ;
         $this->admin->setSubject($object);
 
         /** @var $form \Symfony\Component\Form\Form */
         $form = $this->admin->getForm();
         $form->setData($object);
 
-        if ($this->getRestMethod()== 'POST') {
+        if ($this->getRestMethod() == 'POST') {
             $form->bind($this->get('request'));
-
             $isFormValid = $form->isValid();
 
             // persist if the form was valid and if in preview mode the preview was approved
             if ($isFormValid && (!$this->isInPreviewMode() || $this->isPreviewApproved())) {
                 $this->admin->create($object);
-
                 if ($this->isXmlHttpRequest()) {
                     return $this->renderJson(array(
                         'result' => 'ok',
@@ -59,7 +70,7 @@ class EmailCRUDController extends CRUDController
                 }
 
                 // redirect to edit mode
-                return $this->redirectTo($object);
+                return $this->redirect($this->admin->generateUrl('show', array('id' => $object->getId())));
             }
 
             // show an error message if the form failed validation
@@ -80,29 +91,10 @@ class EmailCRUDController extends CRUDController
         $this->get('twig')->getExtension('form')->renderer->setTheme($view, $this->admin->getFormTheme());
 
         return $this->render($this->admin->getTemplate($templateKey), array(
-            'action' => 'create',
-            'form'   => $view,
-            'object' => $object,
+            'action'  => 'create',
+            'form'    => $view,
+            'object'  => $object,
+            'emailId' => $id,
         ));
-    }
-
-    /**
-     * return the Response object associated to the edit action
-     *
-     *
-     * @param mixed $id
-     *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
-     * @return Response
-     */
-    public function editAction($id = null)
-    {
-        if ($this->get('request')->request->get('btn_send')) {
-            return $this->redirect($this->get('san.admin.email_send')->generateUrl('create', array('id' => $id)));
-        }
-
-        return parent::editAction($id);
     }
 }

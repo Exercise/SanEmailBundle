@@ -1,9 +1,16 @@
 <container xmlns="http://symfony.com/schema/dic/services"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="san.admin.email.class">San\EmailBundle\Admin\EmailAdmin</parameter>
+        <parameter key="san.admin.email_send.class">San\EmailBundle\Admin\EmailSendAdmin</parameter>
+        <parameter key="san.admin.email_identity.class">San\EmailBundle\Admin\EmailIdentityAdmin</parameter>
+    </parameters>
+
     <services>
 
-        <service id="san.admin.email" class="San\EmailBundle\Admin\EmailAdmin">
+        <service id="san.admin.email" class="%san.admin.email.class%">
             <tag name="sonata.admin" manager_type="orm" group="Email" label="Email"/>
             <tag name="san.admin" />
             <argument />
@@ -18,18 +25,18 @@
             </call>
         </service>
 
-        <service id="san.admin.email_send" class="San\EmailBundle\Admin\EmailSendAdmin">
+        <service id="san.admin.email_send" class="%san.admin.email_send.class%">
             <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Send"/>
             <tag name="san.admin" />
             <argument />
             <argument>San\EmailBundle\Entity\EmailSend</argument>
-            <argument></argument>
+            <argument>SanEmailBundle:Admin\EmailSendCRUD</argument>
             <call method="setTranslationDomain">
                 <argument>SanEmailBundle</argument>
             </call>
         </service>
 
-        <service id="san.admin.email_identity" class="San\EmailBundle\Admin\EmailIdentityAdmin">
+        <service id="san.admin.email_identity" class="%san.admin.email_identity.class%">
             <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Identity"/>
             <tag name="san.admin" />
             <argument />

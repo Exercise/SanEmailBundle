@@ -1,54 +1,67 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
 
 {% block form %}
-    <h4>Send "<a href="{{ admin.generateUrl('edit', {'id': email.id}) }}">{{ email }}</a>" email</h4>
-    {% set url = 'send' %}
-    <form class="form-horizontal"
-          action="{{ admin.generateUrl(url, {'id': email.id, 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
-          method="POST"
-          {% if not admin_pool.getOption('html5_validate') %}novalidate="novalidate"{% endif %}
-          >
-        {% if form.vars.errors|length > 0 %}
-            <div class="sonata-ba-form-error">
-                {{ form_errors(form) }}
-            </div>
-        {% endif %}
+<form class="form-horizontal"
+      action="{{ admin.generateUrl('create', {'id': emailId, 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
+      method="POST"
+      {% if not admin_pool.getOption('html5_validate') %}novalidate="novalidate"{% endif %}
+      >
+    {% if form.vars.errors|length > 0 %}
+        <div class="sonata-ba-form-error">
+            {{ form_errors(form) }}
+        </div>
+    {% endif %}
 
-        {% block sonata_pre_fieldsets %}
-            {{ parent() }}
-        {% endblock %}
-
-            <div class="tab-content">
+    {% block sonata_pre_fieldsets %}
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
                 {% for name, form_group in admin.formgroups %}
-                    <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
-                        <fieldset>
-                            <div class="sonata-ba-collapsed-fields">
-                                {% if form_group.description != false %}
-                                    <p>{{ form_group.description|raw }}</p>
-                                {% endif %}
-
-                                {% for field_name in form_group.fields %}
-                                    {% if admin.formfielddescriptions[field_name] is defined %}
-                                        {{ form_row(form[field_name])}}
-                                    {% endif %}
-                                {% endfor %}
-                            </div>
-                        </fieldset>
-                    </div>
+                    <li class="{% if loop.first %}active{% endif %}">
+                        <a href="#{{ admin.uniqid }}_{{ loop.index }}" data-toggle="tab">
+                            <i class="icon-exclamation-sign has-errors hide"></i>
+                            {{ admin.trans(name, {}, form_group.translation_domain) }}
+                        </a>
+                    </li>
                 {% endfor %}
-            </div>
+            </ul>
+    {% endblock %}
 
-        {% block sonata_post_fieldsets %}
-            {{ parent() }}
-        {% endblock %}
+        <div class="tab-content">
+            {% for name, form_group in admin.formgroups %}
+                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
+                    <fieldset>
+                        <div class="sonata-ba-collapsed-fields">
+                            {% if form_group.description != false %}
+                                <p>{{ form_group.description|raw }}</p>
+                            {% endif %}
 
-        {{ form_rest(form) }}
+                            {% for field_name in form_group.fields %}
+                                {% if admin.formfielddescriptions[field_name] is defined %}
+                                    {{ form_row(form[field_name])}}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                </div>
+            {% endfor %}
+        </div>
 
-        {% block formactions %}
-            <div class="well well-small form-actions">
-                <input type="submit" class="btn btn-primary" name="btn_send" value="Send"/>
-                <input type="submit" class="btn" name="btn_test" value="Send a test"/>
-            </div>
-        {% endblock formactions %}
-    </form>
+    {% block sonata_post_fieldsets %}
+        </div>
+    {% endblock %}
+
+    {{ form_rest(form) }}
+
+    {% block formactions %}
+        <div class="well well-small form-actions">
+            <input type="submit" class="btn btn-primary" name="btn_create_and_list" value="Send"/>
+            <input type="submit" class="btn" name="btn_test" value="Send a test"/>
+        </div>
+    {% endblock formactions %}
+</form>
+{% endblock %}
+
+{% block footer %}
+    {{ parent() }}
+    {% include 'SanEmailBundle:Admin/CRUD:preview_modal.html.twig' %}
 {% endblock %}
