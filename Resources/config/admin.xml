@@ -6,12 +6,16 @@
         <parameter key="san.admin.email.class">San\EmailBundle\Admin\EmailAdmin</parameter>
         <parameter key="san.admin.email_send.class">San\EmailBundle\Admin\EmailSendAdmin</parameter>
         <parameter key="san.admin.email_identity.class">San\EmailBundle\Admin\EmailIdentityAdmin</parameter>
+        <parameter key="san.admin.email.group_label">Marketing Emails</parameter>
+        <parameter key="san.admin.email.label">Emails</parameter>
+        <parameter key="san.admin.email_send.label">History</parameter>
+        <parameter key="san.admin.email_identity.label">Sender Address</parameter>
     </parameters>
 
     <services>
 
         <service id="san.admin.email" class="%san.admin.email.class%">
-            <tag name="sonata.admin" manager_type="orm" group="Email" label="Email"/>
+            <tag name="sonata.admin" manager_type="orm" group="%san.admin.email.group_label%" label="%san.admin.email.label%"/>
             <tag name="san.admin" />
             <argument />
             <argument>San\EmailBundle\Entity\Email</argument>
@@ -26,7 +30,7 @@
         </service>
 
         <service id="san.admin.email_send" class="%san.admin.email_send.class%">
-            <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Send"/>
+            <tag name="sonata.admin" manager_type="orm" group="%san.admin.email.group_label%" label="%san.admin.email_send.label%"/>
             <tag name="san.admin" />
             <argument />
             <argument>San\EmailBundle\Entity\EmailSend</argument>
@@ -37,7 +41,7 @@
         </service>
 
         <service id="san.admin.email_identity" class="%san.admin.email_identity.class%">
-            <tag name="sonata.admin" manager_type="orm" group="Email" label="Email Identity"/>
+            <tag name="sonata.admin" manager_type="orm" group="%san.admin.email.group_label%" label="%san.admin.email_identity.label%"/>
             <tag name="san.admin" />
             <argument />
             <argument>San\EmailBundle\Entity\EmailIdentity</argument>
