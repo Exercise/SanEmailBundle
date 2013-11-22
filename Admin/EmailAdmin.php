@@ -23,6 +23,34 @@ class EmailAdmin extends Admin
         $this->manager = $manager;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getTemplate($name)
+    {
+        if ($name == 'edit') {
+            return 'SanEmailBundle:Admin/CRUD:email_edit.html.twig';
+        }
+
+        return parent::getTemplate($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toString($object)
+    {
+        if (!is_object($object)) {
+            return '';
+        }
+
+        if (method_exists($object, '__toString') && null !== $object->__toString()) {
+            return (string) $object;
+        }
+
+        return 'Add new email';
+    }
+
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
@@ -50,18 +78,6 @@ class EmailAdmin extends Admin
         $datagridMapper
             ->add('subject')
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTemplate($name)
-    {
-        if ($name == 'edit') {
-            return 'SanEmailBundle:Admin/CRUD:email_edit.html.twig';
-        }
-
-        return parent::getTemplate($name);
     }
 
     // Fields to be shown on lists

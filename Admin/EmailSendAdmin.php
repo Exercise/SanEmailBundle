@@ -32,6 +32,22 @@ class EmailSendAdmin extends Admin
         return $this->manager;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function toString($object)
+    {
+        if (!is_object($object)) {
+            return '';
+        }
+
+        if (method_exists($object, '__toString') && null !== $object->__toString()) {
+            return (string) $object;
+        }
+
+        return 'Add new email send';
+    }
+
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
