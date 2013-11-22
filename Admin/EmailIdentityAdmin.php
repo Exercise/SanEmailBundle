@@ -7,6 +7,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class EmailIdentityAdmin extends Admin
 {
@@ -70,6 +71,16 @@ class EmailIdentityAdmin extends Admin
             'zip'      => $object->getZip(),
             'country'  => $object->getCountry(),
         ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection
+            ->remove('delete')
+        ;
     }
 
     // Fields to be shown on create/edit forms
