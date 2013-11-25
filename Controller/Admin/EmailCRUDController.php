@@ -54,7 +54,7 @@ class EmailCRUDController extends CRUDController
                 $this->addFlash('sonata_flash_success','flash_create_success');
                 if ($this->get('request')->request->get('btn_create_and_send')) {
                     return $this->redirect($this->get('san.admin.email_send')->generateUrl('create', array(
-                        'id' => $id
+                        'id' => $object->getId()
                     )));
                 }
 
