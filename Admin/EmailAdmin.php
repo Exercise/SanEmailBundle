@@ -51,6 +51,17 @@ class EmailAdmin extends Admin
         return 'Add new email';
     }
 
+    /**
+     * @return array
+     */
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        unset($actions['delete']);
+
+        return $actions;
+    }
+
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)
     {
