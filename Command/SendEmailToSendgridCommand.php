@@ -60,7 +60,7 @@ class SendEmailToSendgridCommand extends ContainerAwareCommand
      */
     protected function getOm()
     {
-        if ($this->getContainer()->get('san.admin.email_send_stats')->getManager() == 'orm') {
+        if ($this->getContainer()->get('san.admin.email')->getManager() == 'orm') {
             return $this->getContainer()->get('doctrine.orm.entity_manager');
         }
 

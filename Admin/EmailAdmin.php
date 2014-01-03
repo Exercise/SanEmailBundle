@@ -16,6 +16,14 @@ class EmailAdmin extends Admin
     protected $manager;
 
     /**
+     * @return string
+     */
+    public function getManager()
+    {
+        return $this->manager;
+    }
+
+    /**
      * @param string $manager
      */
     public function setManager($manager)
