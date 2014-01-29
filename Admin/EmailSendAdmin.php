@@ -35,6 +35,17 @@ class EmailSendAdmin extends Admin
     /**
      * {@inheritdoc}
      */
+    public function getNewInstance()
+    {
+        $email = parent::getNewInstance();
+        // show current date based on user timezone
+        $email->setSendDate(new \DateTime());
+        return $email;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function toString($object)
     {
         if (!is_object($object)) {
@@ -57,9 +68,6 @@ class EmailSendAdmin extends Admin
             ->add('userLists', null, array(
                 'expanded' => false,
                 'required' => false,
-            ))
-            ->add('isHtmlContent', 'checkbox', array(
-                'required' => false
             ))
             ->add('sendDate', 'datetime', array(
                 'required'    => false,
@@ -92,7 +100,6 @@ class EmailSendAdmin extends Admin
             ->add('title')
             ->add('sender')
             ->add('userLists')
-            ->add('isHtmlContent')
             ->add('sendDate')
             ->add('created')
             ->add('attempted')
@@ -133,7 +140,6 @@ class EmailSendAdmin extends Admin
 
         $datagridMapper
             ->add('title')
-            ->add('isHtmlContent')
             ->add('created', $dateType, array(), null, array(
                 'label' => 'Created after'
             ))
@@ -148,7 +154,6 @@ class EmailSendAdmin extends Admin
             ->add('title')
             ->add('sender')
             ->add('userLists')
-            ->add('isHtmlContent')
             ->add('sendDate')
             ->add('created')
             ->add('attempted')
