@@ -38,8 +38,8 @@ class EmailSendAdmin extends Admin
     public function getNewInstance()
     {
         $email = parent::getNewInstance();
-        // show current date based on user timezone
         $email->setSendDate(new \DateTime());
+
         return $email;
     }
 
