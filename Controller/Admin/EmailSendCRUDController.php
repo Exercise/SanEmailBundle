@@ -49,7 +49,9 @@ class EmailSendCRUDController extends CRUDController
         $form->setData($object);
 
         if ($this->getRestMethod() == 'POST') {
-            $form->bind($this->get('request'));
+            $request = $this->get('request');
+            $object->setIsTest((bool) $request->request->get('btn_test'));
+            $form->bind($request);
             $isFormValid = $form->isValid();
 
             // persist if the form was valid and if in preview mode the preview was approved

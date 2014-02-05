@@ -55,7 +55,8 @@ class EmailSendAdmin extends Admin
             ->add('title')
             ->add('subject')
             ->add('userLists', null, array(
-                'expanded' => false
+                'expanded' => false,
+                'required' => false,
             ))
             ->add('isHtmlContent', 'checkbox', array(
                 'required' => false
