@@ -118,6 +118,7 @@ class EmailSendAdmin extends Admin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection
+            ->remove('create')
             ->remove('delete')
             ->remove('edit')
         ;
