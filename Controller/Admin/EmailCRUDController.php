@@ -100,7 +100,7 @@ class EmailCRUDController extends CRUDController
     public function editAction($id = null)
     {
         if ($this->get('request')->request->get('btn_send')) {
-            return $this->redirect($this->get('san.admin.email_send')->generateUrl('create', array('id' => $id)));
+            return $this->redirect($this->get('san.admin.email_send')->generateUrl('createSend', array('id' => $id)));
         }
 
         return parent::editAction($id);
