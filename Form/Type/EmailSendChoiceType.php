@@ -4,9 +4,8 @@ namespace San\EmailBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EmailSendType extends AbstractType
+class EmailSendChoiceType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -16,6 +15,11 @@ class EmailSendType extends AbstractType
         $builder
             ->add('sender')
             ->add('userLists')
+            ->add('sendImmediately', 'checkbox', array(
+                'mapped' => false,
+                'label'     => 'Send immediately?',
+                'required'  => false,
+            ))
             ->add('sendDate', 'datetime', array(
                 'required'    => false,
                 'date_widget' => 'single_text',
@@ -30,6 +34,6 @@ class EmailSendType extends AbstractType
      */
     public function getName()
     {
-        return 'emailSend';
+        return 'emailSendChoice';
     }
 }

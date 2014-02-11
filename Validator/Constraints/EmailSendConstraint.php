@@ -12,6 +12,8 @@ class EmailSendConstraint extends Constraint
 
     public $invalidUserLists = 'Please pick up at least one user list';
 
+    public $invalidSendDate = 'Please set a send date in future';
+
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;

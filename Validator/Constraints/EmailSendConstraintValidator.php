@@ -17,6 +17,17 @@ class EmailSendConstraintValidator extends ConstraintValidator
             }
         }
 
+        if (!$object->getIsTest()) {
+            if ($object->getSendDate() == null) {
+                return;
+            }
+            if ($object->getSendDate() < new \DateTime()) {
+                return $this->context->addViolationAt('emailSend', $constraint->invalidSendDate);
+            } else {
+                return;
+            }
+        }
+
         if (!$object->getTestEmails()) {
             return $this->context->addViolationAt('testEmails', $constraint->invalidTestSend);
         }

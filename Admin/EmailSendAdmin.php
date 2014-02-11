@@ -35,17 +35,6 @@ class EmailSendAdmin extends Admin
     /**
      * {@inheritdoc}
      */
-    public function getNewInstance()
-    {
-        $email = parent::getNewInstance();
-        $email->setSendDate(new \DateTime());
-
-        return $email;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function toString($object)
     {
         if (!is_object($object)) {
@@ -68,6 +57,12 @@ class EmailSendAdmin extends Admin
             ->add('userLists', null, array(
                 'expanded' => false,
                 'required' => false,
+            ))
+            ->add('sendImmediately', 'checkbox', array(
+                'mapped' => false,
+                'label'     => 'Send immediately?',
+                'required'  => false,
+                'attr' => array('class' => 'send_immediately'),
             ))
             ->add('sendDate', 'datetime', array(
                 'required'    => false,
