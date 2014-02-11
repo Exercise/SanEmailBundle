@@ -6,6 +6,7 @@
         <parameter key="san.admin.email.class">San\EmailBundle\Admin\EmailAdmin</parameter>
         <parameter key="san.admin.email_send.class">San\EmailBundle\Admin\EmailSendAdmin</parameter>
         <parameter key="san.admin.email_identity.class">San\EmailBundle\Admin\EmailIdentityAdmin</parameter>
+        <parameter key="san.admin.email_send.entity_class">San\EmailBundle\Entity\EmailSend</parameter>
         <parameter key="san.admin.email.group_label">Marketing Emails</parameter>
         <parameter key="san.admin.email.label">Emails</parameter>
         <parameter key="san.admin.email_send.label">History</parameter>
@@ -33,7 +34,7 @@
             <tag name="sonata.admin" manager_type="orm" group="%san.admin.email.group_label%" label="%san.admin.email_send.label%"/>
             <tag name="san.admin" />
             <argument />
-            <argument>San\EmailBundle\Entity\EmailSend</argument>
+            <argument>%san.admin.email_send.entity_class%</argument>
             <argument>SanEmailBundle:Admin\EmailSendCRUD</argument>
             <call method="setTranslationDomain">
                 <argument>SanEmailBundle</argument>
