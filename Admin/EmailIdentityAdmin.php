@@ -109,12 +109,8 @@ class EmailIdentityAdmin extends Admin
             ->add('replyToEmail', 'email')
             ->add('address')
             ->add('city')
-            ->add('state', 'text', array(
-                'required' => false
-            ))
-            ->add('zip', 'text', array(
-                'required' => false
-            ))
+            ->add('state')
+            ->add('zip')
             ->add('country', 'country')
         ;
     }
