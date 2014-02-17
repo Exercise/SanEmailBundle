@@ -1,18 +1,18 @@
 {% extends 'SonataAdminBundle:CRUD:edit.html.twig' %}
 
 {% block form %}
-<form class="form-horizontal"
-      action="{{ admin.generateUrl('createSend', {'id': emailId, 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
-      method="POST"
-      {% if not admin_pool.getOption('html5_validate') %}novalidate="novalidate"{% endif %}
-      >
-    {% if form.vars.errors|length > 0 %}
-        <div class="sonata-ba-form-error">
-            {{ form_errors(form) }}
-        </div>
-    {% endif %}
-
-    {% block sonata_pre_fieldsets %}
+    <form class="form-horizontal"
+          action="{{ admin.generateUrl('create', {'id': emailId, 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass')}) }}" {{ form_enctype(form) }}
+          method="POST"
+            {% if not admin_pool.getOption('html5_validate') %}novalidate="novalidate"{% endif %}
+            >
+        {% if form.vars.errors|length > 0 %}
+            <div class="sonata-ba-form-error">
+                {{ form_errors(form) }}
+            </div>
+        {% endif %}
+        
+        {% block sonata_pre_fieldsets %}
         <div class="tabbable">
             <ul class="nav nav-tabs">
                 {% for name, form_group in admin.formgroups %}
@@ -24,44 +24,56 @@
                     </li>
                 {% endfor %}
             </ul>
-    {% endblock %}
+            {% endblock %}
 
-        <div class="tab-content">
-            {% for name, form_group in admin.formgroups %}
-                <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
-                    <fieldset>
-                        <div class="sonata-ba-collapsed-fields">
-                            {% if form_group.description != false %}
-                                <p>{{ form_group.description|raw }}</p>
-                            {% endif %}
-
-                            {% for field_name in form_group.fields %}
-                                {% if admin.formfielddescriptions[field_name] is defined %}
-                                    {{ form_row(form[field_name])}}
+            <div class="tab-content">
+                {% for name, form_group in admin.formgroups %}
+                    <div class="tab-pane {% if loop.first %} active{% endif %}" id="{{ admin.uniqid }}_{{ loop.index }}">
+                        <fieldset>
+                            <div class="sonata-ba-collapsed-fields">
+                                {% if form_group.description != false %}
+                                    <p>{{ form_group.description|raw }}</p>
                                 {% endif %}
-                            {% endfor %}
-                        </div>
-                    </fieldset>
-                </div>
-            {% endfor %}
-        </div>
 
-    {% block sonata_post_fieldsets %}
-        </div>
-    {% endblock %}
+                                {% for field_name in form_group.fields %}
+                                    {% if admin.formfielddescriptions[field_name] is defined %}
+                                        {{ form_row(form[field_name])}}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </fieldset>
+                    </div>
+                {% endfor %}
+            </div>
 
-    {{ form_rest(form) }}
-
-    {% block formactions %}
-        <div class="well well-small form-actions">
-            <input type="submit" class="btn btn-primary" name="btn_create_and_list" value="Send"/>
-            <input type="submit" class="btn" name="btn_test" value="Send a test"/>
+            {% block sonata_post_fieldsets %}
         </div>
-    {% endblock formactions %}
-</form>
+        {% endblock %}
+
+        {{ form_rest(form) }}
+
+        {% block formactions %}
+            <div class="well well-small form-actions">
+                <input type="submit" class="btn btn-primary" name="btn_create_and_list" value="Send"/>
+                <input type="submit" class="btn" name="btn_test" value="Send a test"/>
+            </div>
+        {% endblock formactions %}
+    </form>
 {% endblock %}
 
 {% block footer %}
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('.send_immediately').on('change', function () {
+                if($('.send_immediately').is(':checked')){
+                    $('.hasDatepicker, span.time select').attr('disabled', 'disabled');
+                } else{
+                    $('.hasDatepicker, span.time select').removeAttr('disabled', 'disabled');
+                }
+            })
+        });
+    </script>
     {{ parent() }}
     {% include 'SanEmailBundle:Admin/CRUD:preview_modal.html.twig' %}
+
 {% endblock %}
