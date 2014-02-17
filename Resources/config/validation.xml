@@ -7,4 +7,33 @@
         <constraint name="San\EmailBundle\Validator\Constraints\EmailSendConstraint" />
     </class>
 
+    <class name="San\EmailBundle\Model\EmailIdentity">
+        <property name="description">
+            <constraint name="NotNull" />
+        </property>
+        <property name="fromName">
+            <constraint name="NotNull" />
+        </property>
+        <property name="fromEmail">
+            <constraint name="NotNull" />
+            <constraint name="Email" />
+        </property>
+        <property name="replyToEmail">
+            <constraint name="NotNull" />
+            <constraint name="Email" />
+        </property>
+        <property name="address">
+            <constraint name="NotNull" />
+        </property>
+        <property name="city">
+            <constraint name="NotNull" />
+        </property>
+        <property name="state">
+            <constraint name="NotNull" />
+        </property>
+        <property name="zip">
+            <constraint name="NotNull" />
+        </property>
+    </class>
+
 </constraint-mapping>

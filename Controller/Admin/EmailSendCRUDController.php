@@ -12,7 +12,7 @@ class EmailSendCRUDController extends CRUDController
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return Response
      */
-    public function createAction()
+    public function createSendAction()
     {
         // the key used to lookup the template
         $templateKey = 'edit';
@@ -22,7 +22,7 @@ class EmailSendCRUDController extends CRUDController
         }
 
         $object = $this->admin->getNewInstance();
-        if (!($id = $this->get('request')->query->get('id'))) {
+        if (!($id = $this->get('request')->attributes->get('id'))) {
             return $this->redirect($this->get('san.admin.email')->generateUrl('list'));
         }
 
