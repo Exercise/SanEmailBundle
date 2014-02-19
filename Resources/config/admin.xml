@@ -6,7 +6,7 @@
         <parameter key="san.admin.email.class">San\EmailBundle\Admin\EmailAdmin</parameter>
         <parameter key="san.admin.email_send.class">San\EmailBundle\Admin\EmailSendAdmin</parameter>
         <parameter key="san.admin.email_identity.class">San\EmailBundle\Admin\EmailIdentityAdmin</parameter>
-        <parameter key="san.admin.email.group_label">Marketing Emails</parameter>
+        <parameter key="san.admin.email.group_label">Communication</parameter>
         <parameter key="san.admin.email.label">Emails</parameter>
         <parameter key="san.admin.email_send.label">History</parameter>
         <parameter key="san.admin.email_identity.label">Sender Address</parameter>
