@@ -3,7 +3,7 @@
 {% block formactions %}
 <div class="well well-small form-actions">
         {% if admin.id(object) is not null %}
-            <input type="submit" class="btn btn-primary" name="btn_send" value="Send"/>
+            <input type="submit" class="btn btn-primary" name="btn_send" value="Schedule"/>
 
             {% if admin.hasroute('list') %}
                 <input type="submit" class="btn" name="btn_update_and_list" value="{{ 'btn_update_and_return_to_list'|trans({}, 'SonataAdminBundle') }}"/>
@@ -14,7 +14,7 @@
                 <a class="btn btn-danger" href="{{ admin.generateObjectUrl('delete', object) }}">{{ 'link_delete'|trans({}, 'SonataAdminBundle') }}</a>
             {% endif %}
         {% else %}
-            <input class="btn btn-primary" type="submit" name="btn_create_and_send" value="Create and send"/>
+            <input class="btn btn-primary" type="submit" name="btn_create_and_send" value="Create and schedule"/>
             {% if admin.hasroute('edit') %}
                 <input class="btn btn-primary" type="submit" name="btn_create_and_edit" value="{{ 'btn_create_and_edit_again'|trans({}, 'SonataAdminBundle') }}"/>
             {% endif %}
