@@ -439,7 +439,7 @@ class EmailSend
      */
     public function getSendgridEmailName()
     {
-        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getSubject());
+        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i:s'), $this->getSubject());
     }
 
     /**
@@ -447,7 +447,7 @@ class EmailSend
      */
     public function getSendgridListName()
     {
-        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i'), $this->getTitle());
+        return sprintf("[%s] %s", $this->getCreated()->format('d/m/Y h:i:s'), $this->getTitle());
     }
 
     /**
