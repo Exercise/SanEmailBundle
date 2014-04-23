@@ -27,6 +27,7 @@ class UpdateStatsCommand extends ContainerAwareCommand
         $crawler = $client->submit($form, array(
             'login[username]' => $this->getContainer()->getParameter('exercise.sendgrid.api_user'),
             'login[password]' => $this->getContainer()->getParameter('exercise.sendgrid.api_key'),
+            'referal'         => '',
         ));
 
         $emails = $this->getEmailSendRepository()->findAll();
@@ -36,7 +37,7 @@ class UpdateStatsCommand extends ContainerAwareCommand
             $response = $this->getContainer()->get('exercise.sendgrid')->get('marketing')->getEmail(array(
                 'name' => $emailSend->getSendgridEmailName()
             ))->json();
-            $statsFileLink = sprintf("http://sendgrid.com/newsletter/downloadExcelNewsletterStats/id/%u", $response['newsletter_id']);
+            $statsFileLink = sprintf("https://sendgrid.com/newsletter/downloadExcelNewsletterStats/id/%u", $response['newsletter_id']);
             $client->request('GET', $statsFileLink);
             $tempFilePath = sprintf("%s/%s.xls", sys_get_temp_dir(), $response['newsletter_id']);
             $tempFile = fopen($tempFilePath, 'wb');
