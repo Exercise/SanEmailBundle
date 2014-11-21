@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Symfony\Component\Intl\Intl;
 
 class EmailIdentityAdmin extends Admin
 {
@@ -111,7 +112,7 @@ class EmailIdentityAdmin extends Admin
             ->add('city')
             ->add('state')
             ->add('zip')
-            ->add('country', 'country')
+            ->add('country', 'choice', ['choices' => Intl::getRegionBundle()->getCountryNames('en')])
         ;
     }
 
