@@ -58,8 +58,11 @@ class EmailSendAdmin extends Admin
                 'expanded' => false,
                 'required' => false,
             ))
-            ->add('isHtmlContent', 'checkbox', array(
-                'required' => false
+            ->add('sendImmediately', 'checkbox', array(
+                'mapped' => false,
+                'label'     => 'Send immediately?',
+                'required'  => false,
+                'attr' => array('class' => 'send_immediately'),
             ))
             ->add('sendDate', 'datetime', array(
                 'required'    => false,
@@ -92,7 +95,6 @@ class EmailSendAdmin extends Admin
             ->add('title')
             ->add('sender')
             ->add('userLists')
-            ->add('isHtmlContent')
             ->add('sendDate')
             ->add('created')
             ->add('attempted')
@@ -135,7 +137,6 @@ class EmailSendAdmin extends Admin
 
         $datagridMapper
             ->add('title')
-            ->add('isHtmlContent')
             ->add('created', $dateType, array(), null, array(
                 'label' => 'Created after'
             ))
@@ -150,7 +151,6 @@ class EmailSendAdmin extends Admin
             ->add('title')
             ->add('sender')
             ->add('userLists')
-            ->add('isHtmlContent')
             ->add('sendDate')
             ->add('created')
             ->add('attempted')
