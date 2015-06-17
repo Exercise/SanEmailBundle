@@ -56,7 +56,7 @@ class EmailAdmin extends Admin
             return (string) $object;
         }
 
-        return 'Add new email';
+        return 'New Email';
     }
 
     /**

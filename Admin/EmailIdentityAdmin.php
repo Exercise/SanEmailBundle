@@ -51,7 +51,7 @@ class EmailIdentityAdmin extends Admin
             return (string) $object;
         }
 
-        return 'Add email identity';
+        return 'New Email Identity';
     }
 
     /**
